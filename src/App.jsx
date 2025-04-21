@@ -1,20 +1,41 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import Layout from './components/Layout'
 import { fetchArbeidslogg } from './sanity/arbeidsService'
 import { fetchMedlemmer } from './sanity/medlemService'
 import { Route, Routes } from 'react-router-dom'
 import MemberPage from './components/MemberPage'
+import Home from './components/Home'
 
 function App() {
 
+  const [logs, setLogs] = useState([])
+  const [members, setMembers] = useState([])
+
+  const getMembers = async () => {
+    const data = await fetchMedlemmer()
+    setMembers(data)
+  }
+
+  const getWorklogs = async () => {
+    const data = await fetchArbeidslogg()
+    setLogs(data)
+  }
+
+
+  useEffect(() => {
+    getMembers();
+    getWorklogs();
+  }, [])
+
+
+
+
   return (
     <>
-    <Layout>
+    <Layout members={members}>
       <Routes>
-        <Route path="/" element={<MemberPage />}/>
+        <Route path="/" element={<Home logs={logs} members={members}/>}/>
+        <Route path="/:slug" element={<MemberPage members={members} />}/>
       </Routes>
     </Layout>
     </>

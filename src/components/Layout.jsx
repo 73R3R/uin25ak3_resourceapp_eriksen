@@ -1,17 +1,11 @@
-import { children } from "react";
-import { Link } from "react-router-dom";
+import Nav from "./Nav";
+import "../styles/Layout.scss"
 
-export default function Layout(){
+export default function Layout({ children, members }){
     return(
         <>
         <header>
-            <nav>
-                <ul>
-                    <li><Link to="/">ONE MAN ARMY</Link></li>
-                    <li><Link to="/">HJEM</Link></li>
-                    <li><Link to="medlem" >SYVER</Link></li>
-                </ul>
-            </nav>
+            <Nav members={members}/>
         </header>
         <main>
             {children}

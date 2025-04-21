@@ -4,8 +4,11 @@ export async function fetchMedlemmer(){
     const data = await client.fetch(`*[_type == "medlemmer"]{
         _id,
         medlemsnavn,
-        bilde,
-        email
+        bilde{asset ->{_id, url}},
+        email,
+        interesser,
+        biografi,
+        "memberslug": memberslug.current
         }`)
 
     try {
@@ -13,6 +16,7 @@ export async function fetchMedlemmer(){
         catch (error) 
         {console.error("Feil ved henting av medlemmer:", error.message);
         }
-}
 
-fetchMedlemmer()
+        return data
+
+}

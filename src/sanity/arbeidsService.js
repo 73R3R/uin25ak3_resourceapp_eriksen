@@ -14,6 +14,5 @@ export async function fetchArbeidslogg(){
         catch (error) 
         {console.error("Feil ved henting av arbeidslogg:", error.message);
     }
+    return data
 }
-
-fetchArbeidslogg()
